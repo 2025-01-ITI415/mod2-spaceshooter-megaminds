@@ -36,7 +36,7 @@ public class Enemy_2 : Enemy
         p1.x = bndCheck.camWidth + bndCheck.radius;
         p1.y = Random.Range(-bndCheck.camHeight, bndCheck.camHeight);
 
-        // Possibly swap sides
+        // Possibly swap sides USE FOR SCREEN SWAP
         if (Random.value > 0.5f)
         {
             // Setting the .x of each point to its negative will move it to 
