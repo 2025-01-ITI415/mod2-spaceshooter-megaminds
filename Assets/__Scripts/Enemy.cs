@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(BoundsCheck))]
 public class Enemy : MonoBehaviour
@@ -13,6 +15,8 @@ public class Enemy : MonoBehaviour
     public float health = 10;    // Damage needed to destroy this enemy
     public int score = 100;   // Points earned for destroying this
     public float powerUpDropChance = 1f;
+
+    public Text    scoreText;
 
 
     // private BoundsCheck bndCheck;                                             // b
@@ -77,9 +81,21 @@ public class Enemy : MonoBehaviour
                         calledShipDestroyed = true;
                         Main.SHIP_DESTROYED(this);
                     }
-                    // Destroy this Enemy
-                    Destroy(this.gameObject);
-                }
+
+                    Destroy( this.gameObject );
+
+                    int score = int.Parse( scoreText.text );
+
+                    if ( gameObject.tag == "Enemy1" ){
+                        score += 100;
+                    } else if ( gameObject.tag == "Enemy2" ){
+                        score += 300;
+                    } else if ( gameObject.tag == "Enemy3" ){
+                        score -= 100;
+                    }
+                    
+                    scoreText.text = score.ToString();
+                
             }
             // Destroy the ProjectileHero regardless
             Destroy(otherGO);                                               // e
@@ -89,5 +105,5 @@ public class Enemy : MonoBehaviour
             print("Enemy hit by non-ProjectileHero: " + otherGO.name);      // f
         }
     }
-
+    }
 }
