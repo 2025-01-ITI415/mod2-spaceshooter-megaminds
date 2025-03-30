@@ -81,13 +81,24 @@ public class Enemy : MonoBehaviour
                     Destroy(this.gameObject);
                 }
             }
+            if(p.type != eWeaponType.laser){
+                  Destroy(otherGO);                                               
+            }
             // Destroy the ProjectileHero regardless
-            Destroy(otherGO);                                               // e
+          // e
         }
         else
         {
             print("Enemy hit by non-ProjectileHero: " + otherGO.name);      // f
         }
+
+
+        GameObject otherGOL = coll.gameObject;
+
+        // Check for collisions with ProjectileHero
+        
+
+
     }
 
 }

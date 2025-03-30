@@ -19,7 +19,7 @@ public class Main : MonoBehaviour
     public GameObject prefabPowerUp;
     public WeaponDefinition[] weaponDefinitions;
     public eWeaponType[] powerUpFrequency = new eWeaponType[] {        
-                                     eWeaponType.blaster, eWeaponType.blaster,
+                                     eWeaponType.blaster, eWeaponType.blaster, eWeaponType.laser, eWeaponType.missile, eWeaponType.phaser,
                                      eWeaponType.spread,  eWeaponType.shield };
     private BoundsCheck bndCheck;
 
@@ -42,11 +42,9 @@ public class Main : MonoBehaviour
 
     }
 
-    public void SpawnEnemy()
-    {
+    public void SpawnEnemy() {
         // If spawnEnemies is false, skip to the next invoke of SpawnEnemy()
-        if (!spawnEnemies)
-        {                                                // c
+        if (!spawnEnemies) {                                                // c
             Invoke(nameof(SpawnEnemy), 1f / enemySpawnPerSecond);
             return;
         }
@@ -134,5 +132,7 @@ public class Main : MonoBehaviour
             pUp.transform.position = e.transform.position;
         }
     }
+
+    
 
 }
