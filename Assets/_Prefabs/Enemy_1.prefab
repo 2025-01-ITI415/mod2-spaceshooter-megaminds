@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -3276189781993667969}
   - component: {fileID: -1917590306202160469}
   - component: {fileID: -7673476286361338896}
+  - component: {fileID: 1018205461967620682}
   m_Layer: 7
   m_Name: Enemy_1
   m_TagString: Enemy1
@@ -96,9 +97,8 @@ MonoBehaviour:
   speed: 10
   fireRate: 0.3
   health: 10
-  score: 100
   powerUpDropChance: 1
-  scoreText: {fileID: 0}
+  calledShipDestroyed: 0
   waveFrequency: 2
   waveWidth: 4
   waveRotY: 45
@@ -116,6 +116,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showingColor: 0
   blinkCompleteTime: 0
+--- !u!114 &1018205461967620682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3319825933102930435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e491dbf6a1dc9945ae28f89caefbdf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _killScore: 200
 --- !u!1001 &5065028546169738789
 PrefabInstance:
   m_ObjectHideFlags: 0

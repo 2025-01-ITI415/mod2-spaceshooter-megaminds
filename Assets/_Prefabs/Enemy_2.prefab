@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6386100550465846470}
   - component: {fileID: 2265402526826171928}
   - component: {fileID: 6089092828735047604}
+  - component: {fileID: 6086882353965997775}
   m_Layer: 7
   m_Name: Enemy_2
   m_TagString: Enemy2
@@ -120,9 +121,8 @@ MonoBehaviour:
   speed: 10
   fireRate: 0.3
   health: 10
-  score: 100
   powerUpDropChance: 1
-  scoreText: {fileID: 0}
+  calledShipDestroyed: 0
   lifeTime: 10
   sinEccentricity: 0.6
   rotCurve:
@@ -202,6 +202,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showingColor: 0
   blinkCompleteTime: 0
+--- !u!114 &6086882353965997775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4070209521177695457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e491dbf6a1dc9945ae28f89caefbdf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _killScore: 300
 --- !u!1001 &8705781302841839033
 PrefabInstance:
   m_ObjectHideFlags: 0
