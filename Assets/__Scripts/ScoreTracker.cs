@@ -9,16 +9,10 @@ public class ScoreTracker : MonoBehaviour
 {
     public int          score;
     public Text         scoreText;
-    // public Text                     highscoreText;
-
-    // int highscore                   = 0;
-    void Start()
-    {
-        
-    }
 
     public void UpdateScore(int points)
     {
+        // increments score
         score += points;
         scoreText.text = "Score: " + score;
     }

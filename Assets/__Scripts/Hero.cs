@@ -1,6 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class Hero : MonoBehaviour
 {
@@ -15,6 +19,9 @@ public class Hero : MonoBehaviour
     public GameObject projectilePrefab;
     public float projectileSpeed = 40;
     public Weapon[] weapons;
+    public int lives = 3;
+    // finding UI image of lives to reference later
+    public UnityEngine.UI.Image[] livesUI;
 
     [Header("Dynamic")]
     [Range(0, 4)]
@@ -107,6 +114,20 @@ public class Hero : MonoBehaviour
         if (enemy != null)
         {  // If the shield was triggered by an enemy
             shieldLevel--;        // Decrease the level of the shield by 1
+            lives -=1;
+
+            // checks image within array to increment down and remove image
+            for( int i = 0; i < livesUI.Length; i++ )
+            {
+                if ( i < lives )
+                {
+                    livesUI[i].enabled = true;
+                }
+                else
+                {
+                    livesUI[i].enabled = false;
+                }
+            }
             Destroy(go);          // … and Destroy the enemy                  // f
         }
         else if (pUp != null)
@@ -130,6 +151,7 @@ public class Hero : MonoBehaviour
             {                                                  // e
                 Destroy(this.gameObject);  // Destroy the Hero
                 Main.HERO_DIED();
+                SceneManager.LoadScene("Game_Over");
             }
         }
     }

@@ -86,6 +86,7 @@ public class Enemy : MonoBehaviour
                         Main.SHIP_DESTROYED(this);
 
                     }
+                    // calls scoretracker.cs to increment score
                     scoreTracker.UpdateScore(50);
                     Destroy( this.gameObject );
                  }
