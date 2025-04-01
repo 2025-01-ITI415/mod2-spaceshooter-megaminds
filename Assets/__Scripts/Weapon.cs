@@ -62,7 +62,7 @@ public class Weapon : MonoBehaviour
     public float nextShotTime; // Time the Weapon will fire next
 
     private GameObject weaponModel;
-    private Transform shotPointTrans;
+    public Transform shotPointTrans;
 
     void Start()
     {
@@ -112,7 +112,7 @@ public class Weapon : MonoBehaviour
         nextShotTime = 0; // You can fire immediately after _type is set.    // h
     }
 
-    private void Fire()
+    public void Fire()
     {
         // If this.gameObject is inactive, return
         if (!gameObject.activeInHierarchy) return;                         // i
@@ -120,6 +120,8 @@ public class Weapon : MonoBehaviour
         if (Time.time < nextShotTime) return;                              // j
 
         ProjectileHero p;
+    
+
         Vector3 vel = Vector3.up * def.velocity;
 
         switch (type)
@@ -129,7 +131,7 @@ public class Weapon : MonoBehaviour
                 p.vel = vel;
                 break;
 
-            case eWeaponType.spread:                                         // l
+            case eWeaponType.spread:                                      // l
                 p = MakeProjectile();
                 p.vel = vel;
                 p = MakeProjectile();
@@ -139,15 +141,33 @@ public class Weapon : MonoBehaviour
                 p.transform.rotation = Quaternion.AngleAxis(-10, Vector3.back);
                 p.vel = p.transform.rotation * vel;
                 break;
-
+            
         }
     }
+
+    void ExtendPrefab(ProjectileHero projectile)
+    {
+        if (projectile != null && projectile.transform != null) // Ensure it's valid
+        {
+            Vector3 newScale = projectile.transform.localScale;
+            newScale.y += 75;  // Increase the Y-axis length by 3 units
+            projectile.transform.localScale = newScale;
+        }
+        else
+        {
+            Debug.LogError("ProjectileHero or its Transform is null!");
+        }
+    }
+
+
 
     private ProjectileHero MakeProjectile()
     {                                 // m
         GameObject go;
         go = Instantiate<GameObject>(def.projectilePrefab, PROJECTILE_ANCHOR); // n
         ProjectileHero p = go.GetComponent<ProjectileHero>();
+
+        
 
         Vector3 pos = shotPointTrans.position;
         pos.z = 0;                                                            // o
@@ -157,6 +177,24 @@ public class Weapon : MonoBehaviour
         nextShotTime = Time.time + def.delayBetweenShots;                    // p
         return (p);
     }
+
+    public ProjectileHero MakeLaser(){ 
+        GameObject go;
+        go = Instantiate<GameObject>(def.projectilePrefab, PROJECTILE_ANCHOR); // n
+        ProjectileHero p = go.GetComponent<ProjectileHero>();
+        ExtendPrefab(p);
+
+        Vector3 pos = shotPointTrans.position;
+        pos.z = 0;                                                            // o
+        p.transform.position = pos;
+
+        p.type = type;
+        nextShotTime = Time.time + def.delayBetweenShots;                    // p
+        return (p);
+    }
+    
+
+
 }
 
 

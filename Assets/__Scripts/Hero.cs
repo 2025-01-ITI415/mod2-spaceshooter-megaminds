@@ -32,8 +32,14 @@ public class Hero : MonoBehaviour
     private GameObject lastTriggerGo = null;
 
     // Declare a new delegate type WeaponFireDelegate
-    public delegate void WeaponFireDelegate();                                // a     // Create a WeaponFireDelegate event named fireEvent.
+    public delegate void WeaponFireDelegate();             // a     // Create a WeaponFireDelegate event named fireEvent.
     public event WeaponFireDelegate fireEvent;
+
+    public delegate void PowerGrabDelegate();
+    public event PowerGrabDelegate powerEvent;
+    public eWeaponType currentType = eWeaponType.blaster;
+    private bool isFiring = false;
+    private ProjectileHero laser;
 
 
 
@@ -76,7 +82,28 @@ public class Hero : MonoBehaviour
         //}
 
         // Use the fireEvent to fire Weapons when the Spacebar is pressed.
-        if (Input.GetAxis("Jump") == 1 && fireEvent != null)
+        if (Input.GetAxis("Jump") == 1 && currentType == eWeaponType.laser) {
+            if (!isFiring) {
+                laser = weapons[0].MakeLaser(); // Create the laser only once
+                isFiring = true; // Mark as firing
+            }
+        }
+        
+        if (laser != null) {
+            laser.transform.position = weapons[0].shotPointTrans.position + new Vector3(0,40,0); 
+        }
+
+        if (Input.GetAxis("Jump") != 1 && currentType == eWeaponType.laser) {
+            if (laser != null) {
+                Destroy(laser.gameObject); // Destroy the laser when spacebar is released
+                laser = null; // Clear reference
+            }
+            isFiring = false; // Mark as not firing
+        }
+
+        
+
+        if (Input.GetAxis("Jump") == 1 && currentType != eWeaponType.laser)
         {
             fireEvent();
         }
@@ -98,7 +125,7 @@ public class Hero : MonoBehaviour
 
     //}
 
-    void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
         Transform rootT = other.gameObject.transform.root;                    // a
         GameObject go = rootT.gameObject;
@@ -132,7 +159,9 @@ public class Hero : MonoBehaviour
         }
         else if (pUp != null)
         {
+            currentType = pUp.type;
             AbsorbPowerUp(pUp);
+            if(pUp.type == eWeaponType.laser) { }
         }
         else
         {
@@ -191,6 +220,7 @@ public class Hero : MonoBehaviour
             case eWeaponType.shield:                                              // a 
                 shieldLevel++;
                 break;
+            
 
             default:                                                             // b
                 if (pUp.type == weapons[0].type)

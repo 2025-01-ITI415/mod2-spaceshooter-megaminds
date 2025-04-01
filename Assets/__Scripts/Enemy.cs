@@ -98,5 +98,13 @@ public class Enemy : MonoBehaviour
         {
             print("Enemy hit by non-ProjectileHero: " + otherGO.name);      // f
         }
+
+
+        GameObject otherGOL = coll.gameObject;
+
+        // Check for collisions with ProjectileHero
+        
+
+
     }
 }
