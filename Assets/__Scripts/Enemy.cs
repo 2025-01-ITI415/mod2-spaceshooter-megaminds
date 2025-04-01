@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
@@ -18,6 +19,9 @@ public class Enemy : MonoBehaviour
     // private BoundsCheck bndCheck;                                             // b
     protected BoundsCheck bndCheck;
     public bool calledShipDestroyed = false;
+    [SerializeField]
+    private ScoreTracker        scoreTracker;
+
 
     void Awake()
     {                                                            // c
@@ -35,6 +39,12 @@ public class Enemy : MonoBehaviour
         {
             this.transform.position = value;
         }
+
+    }
+
+    void Start()
+    {
+        scoreTracker = GameObject.Find("ScoreTracker").GetComponent<ScoreTracker>();
     }
 
     void Update()
@@ -76,10 +86,8 @@ public class Enemy : MonoBehaviour
                         Main.SHIP_DESTROYED(this);
 
                     }
-
+                    scoreTracker.UpdateScore(50);
                     Destroy( this.gameObject );
-
-                    ScoreTracker.instance.AddScore();
                  }
                  // Destroy the ProjectileHero regardless
                  Destroy(otherGO);                                               // e

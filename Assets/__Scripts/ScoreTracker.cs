@@ -7,27 +7,19 @@ using UnityEngine.UI;
 
 public class ScoreTracker : MonoBehaviour
 {
-    public static ScoreTracker      instance;
-    public Text                     scoreText;
-    public Text                     highscoreText;
+    public int          score;
+    public Text         scoreText;
+    // public Text                     highscoreText;
 
-    public int score                { get; private set; }
-    int highscore                   = 0;
-
-    private void Awake()
-    {
-        instance = this;
-    }
-
+    // int highscore                   = 0;
     void Start()
     {
-        scoreText.text = score.ToString() + "Score";
-        highscoreText.text = "Highscore: " + highscore.ToString();
+        
     }
 
-    public void AddScore(int amount)
+    public void UpdateScore(int points)
     {
-        score += amount;
-        scoreText.text = score.ToString();
+        score += points;
+        scoreText.text = "Score: " + score;
     }
 }
